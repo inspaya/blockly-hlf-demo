@@ -9,16 +9,32 @@ The Hyperledger Fabric network is an enterprise-level, permissioned blockchain p
 * Limit the code produced on the client by generators to non-sensitive code only by replacing potentially sensitive operations with placeholders. These placeholders are then replaced with appropriate code values on the backend subject to approval based on existing network policy.
 
 
-## Sample Smart Contracts and Proposed Blockly Equivalents
+## Sample Smart Contract Method and Proposed Blockly Equivalent
+
+### Building Custom Blocks
 
 NodeJS
 ```
+...
 // AssetExists returns true when asset with given ID exists in world state.
     async AssetExists(ctx, id) {
         const assetJSON = await ctx.stub.getState(id);
         return assetJSON && assetJSON.length > 0;
     }
+...
 ``` 
 
 Blockly
 ![AssetExists Function in Blockly](./assets/asset_exists.png)
+
+### Using Custom Workspaces
+
+Each organization in the Hyperledger Fabric network has a custom workspace with blocks specific to the peers they will be working with. To illustrate;
+
+* **WaZoBia Org** is a fictitious organization on an HLF network that deals with providing intervention for _farmers_, as a result they have access to blocks related to _fertilizers_, _seeds_, _farmer funds_ in their workspace. 
+* A second organization, **FunmiBaniWete Org** deals with _students_, and has blocks related to _scholarships_, _student-locations_, _year-of-study_ e.t.c in their own workspace.
+* A third organization, **OgaAtTheTop Org**, has access to multiple audiences which includes _farmers_ and _students_, and so they see all the blocks from the workspaces above.
+
+### Generating Non-sensitive code
+
+This is tricky!
